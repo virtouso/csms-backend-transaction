@@ -1,0 +1,27 @@
+﻿version: '3.8'
+
+services:
+  transaction:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: transaction
+    restart: always
+
+    ports:
+      - "60602:60602"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      REQUEST_TOPIC: request
+      RESPONSE_TOPIC: response
+      TOPIC_GROUP: auth
+
+
+    networks:
+      - shared_network
+
+
+
+networks:
+  shared_network:
+    external: true
